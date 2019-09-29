@@ -24,8 +24,6 @@ public class UserController {
     private UserLoginService userLoginService;
     @Autowired
     private RoleLoginService roleLoginService;
-    @Autowired
-    private OrderService orderService;
     @RequestMapping("login")
     public @ResponseBody
     Massage bxForm(User user, HttpSession session){
@@ -36,9 +34,6 @@ public class UserController {
         int user_id;
         pwd=md5.md5(user.getUserPwd());
         Massage massage=new Massage();
-        System.out.println(userLoginService.selectByName(user.getUserName()).getUserPwd().equals(pwd));
-        System.out.println(userLoginService.selectByName(user.getUserName()).getUserPwd());
-        System.out.println(pwd);
         if (userLoginService.selectByName(user.getUserName()).getUserPwd().equals(pwd)){
             user=userLoginService.selectByName(user.getUserName());
             user_role=user.getUserRole();
@@ -55,6 +50,15 @@ public class UserController {
             return massage;
 
         }
+    }
+    @RequestMapping("logout")
+    public @ResponseBody Massage logOut(HttpSession session){
+        Massage massage=new Massage();
+        session.removeAttribute("username");
+        session.removeAttribute("rolename");
+        session.removeAttribute("userid");
+        massage.setMassage("登出成功");
+        return massage;
     }
 
 }

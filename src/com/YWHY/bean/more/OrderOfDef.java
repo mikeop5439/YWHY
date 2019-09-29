@@ -1,5 +1,7 @@
 package com.YWHY.bean.more;
 
+import java.util.Date;
+
 public class OrderOfDef {
     private Integer orderId;
     private String orderDefeat;
@@ -18,13 +20,5 @@ public class OrderOfDef {
 
     public void setOrderDefeat(String orderDefeat) {
         this.orderDefeat = orderDefeat;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderOfDef{" +
-                "orderId=" + orderId +
-                ", orderDefeat='" + orderDefeat + '\'' +
-                '}';
     }
 }

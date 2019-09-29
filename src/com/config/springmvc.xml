@@ -79,9 +79,14 @@
 		<!--</mvc:interceptor>-->
 		<!---->
 	<!--</mvc:interceptors>-->
-	
-	
-	
-	
-	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<bean class="com.YWHY.InInterceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+
+
 </beans>

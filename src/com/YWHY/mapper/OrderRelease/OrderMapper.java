@@ -2,6 +2,7 @@ package com.YWHY.mapper.OrderRelease;
 
 import com.YWHY.bean.Order;
 import com.YWHY.bean.more.OrderOfDef;
+import com.YWHY.bean.more.OrderOfSuccess;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface OrderMapper {
     List<Order> selectOrderOfStartByPrimaryKey(Integer orderId);
 
     int updateOrderDefByPrimaryKey(OrderOfDef orderOfDef);
+
+    int updateOrderSuccessByPrimaryKey(OrderOfSuccess orderOfSuccess);
 }

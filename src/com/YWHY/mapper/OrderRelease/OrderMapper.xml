@@ -175,11 +175,14 @@
     where order_user_id = #{orderUserId,jdbcType=INTEGER}
   </select>
   <select id="selectOrderOfStartByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    *
-    from `order`
-    where order_user_id = #{orderUserId,jdbcType=INTEGER}
-    and order_status = 0
+    select *
+    from (
+     select *
+     from `order`
+     where order_user_id = #{orderUserId,jdbcType=INTEGER}
+     or order_support_id = #{orderUserId,jdbcType=INTEGER}
+   )b
+   where b.order_status = 0
   </select>
   <update id="updateOrderDefByPrimaryKey" parameterType="com.YWHY.bean.more.OrderOfDef" >
     update `order`
@@ -187,7 +190,17 @@
       <if test="orderDefeat != null" >
         order_defeat = #{orderDefeat,jdbcType=VARCHAR},
       </if>
-        order_status = 2
+      order_end_date = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s'),
+      order_status = 2
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateOrderSuccessByPrimaryKey" parameterType="com.YWHY.bean.more.OrderOfSuccess">
+    update `order`
+    <set >
+      order_end_date = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s'),
+      order_status = 1,
+      order_support_id = #{orderSupportId,jdbcType=INTEGER}
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>

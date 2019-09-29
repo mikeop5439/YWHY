@@ -28,7 +28,7 @@
 		</p>
 		<br>
 		<a class="remodal1-cancel1" href="#modal2">失败</a>
-		<a class="remodal1-confirm1" href="#modal3">成功</a>
+		<a class="remodal1-confirm1" onclick="setProdsType()" href="#modal3">成功</a>
 	</div>
 
 	<!--失败原因反馈-->
@@ -46,7 +46,7 @@
 		</p>
 		<br>
 		<a class="remodal-cancel" href="#">取消</a>
-		<a class="remodal-confirm" onclick="submitOrderRpOfDef()" href="#" >提交</a>
+		<a id="submitdef" class="remodal-confirm" onclick="submitOrderRpOfDef()"  >提交</a>
 	</div>
 
 	<!--成功信息提交-->
@@ -61,15 +61,17 @@
 		</p>
 		<br>
 		<p>
-			业务名称： <input type="text" />
+			业务名称：
+			<select id="prodstype" name="themplate" >
+		    </select>
 		</p>
 		<br>
 		<p>
-			&nbsp&nbsp&nbsp接入号： <input type="text" />
+			&nbsp&nbsp&nbsp接入号： <input id="prodAccount" type="text" />
 		</p>
 		<br>
 		<a class="remodal-cancel" href="#">Cancel</a>
-		<a class="remodal-confirm" href="#">OK</a>
+		<a id="submitsucc" class="remodal-confirm" onclick="submitSuccessOrder()" >OK</a>
 	</div>
 	</div>
 <!--js-->
@@ -102,7 +104,7 @@
 									<li><a href="引导.html"><span class="icons icn2"> </span>发起工单</a></li>
 									<li><a href="#"><span class="icons icn3"> </span> 历史工单</a></li>
 									<li><a href="#"><span class="icons icn4"> </span> 设置</a></li>
-									<li><a href="#"><span class="icons icn5"> </span> 退出</a></li>
+									<li><a onclick="logOut()"  href="#"><span class="icons icn5"> </span> 退出</a></li>
 								</ul>
 							</nav>
 								<script type="text/javascript">
@@ -144,11 +146,11 @@
 				<div class="clear"> </div>
 				<div class="banner-bottom">
 					<div class="banner-bottom-left">
-						<h3 id="order_all_count">13</h3>
+						<h3 id="order_all_count">NULL</h3>
 						<p>发现商机</p>
 					</div>
 					<div class="banner-bottom-right">
-						<h3 id="order_end_count">25</h3>
+						<h3 id="order_end_count">NULL</h3>
 						<p>完成商机</p>
 					</div>
 					<div class="clear"> </div>
@@ -164,6 +166,20 @@
 <script type="text/javascript" src="js/settime.js"></script>
 <script src="src/jquery.remodal.js"></script>
 <script type="text/javascript">
+    function setProdsType() {
+        $.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath }/prod/queryAllProds.action",
+            dataType:"json",
+            success:function(data){
+                $("#prodstype").empty();
+                $.each(data,function(index,content){
+                    var option = $("<option></option>").attr("value",content.prodTypeId).append(content.prodTypeName);
+                    $("#prodstype").append(option);
+                });
+            }
+        });
+    }
 	function setOrderId(orderid) {
         $("#orderid_rp_suc").val(orderid);
         $("#orderid_rp_def").val(orderid);
@@ -213,20 +229,105 @@
         });
 	}
     function submitOrderRpOfDef(){
-        console.log("!!!!!");
-	    var orderId = $("#orderid_rp_def").val();
-	    var orderDefeat = $("#defeatres").val();
-        var params = '{"orderId":"'+orderId+'","orderDefeat":"'+orderDefeat+'"}';
+        if(checkDefInput()){
+            $("#submitdef").attr("href","#");
+            var user_id="${ sessionScope.userid}";
+            var orderId = $("#orderid_rp_def").val();
+            var orderDefeat = $("#defeatres").val();
+            var params = '{"orderId":"'+orderId+'","orderDefeat":"'+orderDefeat+'"}';
+            $.ajax({
+                headers : {"ClientCallMode" : "ajax"},
+                type:"POST",
+                contentType: 'application/json',
+                url:"${pageContext.request.contextPath }/order/submitOrderOfDef.action",
+                data:params,
+                dataType:"json",
+                success:function(data){
+                    if(data==1){
+                        queryOrders(user_id);
+                    }
+                }
+            });
+        }else{
+            return false;
+        }
+	}
+    function submitOrderOfSuccess() {
+        var orderSupportId="${ sessionScope.userid}";
+        var orderId = $("#orderid_rp_def").val();
+        var params = '{"orderSupportId":"'+orderSupportId+'","orderId":"'+orderId+'"}';
         $.ajax({
             headers : {"ClientCallMode" : "ajax"},
             type:"POST",
-            url:"${pageContext.request.contextPath }/order/submitOrderOfDef.action",
+            contentType: 'application/json',
+            url:"${pageContext.request.contextPath }/order/submitOrderOfSuccess.action",
             data:params,
             dataType:"json",
             success:function(data){
-
             }
         });
+    }
+    function submitProds() {
+        var prodTypeId = $("#prodstype").val();
+        var prodAccount = $("#prodAccount").val();
+        var orderId = $("#orderid_rp_def").val();
+        var params = '{"prodTypeId":"'+prodTypeId+'","prodAccount":"'+prodAccount+'","orderId":"'+orderId+'"}';
+        $.ajax({
+            headers : {"ClientCallMode" : "ajax"},
+            type:"POST",
+            contentType: 'application/json',
+            url:"${pageContext.request.contextPath }/order/submitProds.action",
+            data:params,
+            dataType:"json",
+            success:function(data){
+            }
+        });
+
+    }
+    function submitSuccessOrder(){
+        if(checkSuccessInput()){
+            $("#submitsucc").attr("href","#");
+            var user_id="${ sessionScope.userid}";
+            submitProds();
+            submitOrderOfSuccess();
+            queryOrderCount(user_id);
+            queryOrders(user_id);
+        }else{
+            return false;
+        }
 	}
+    function checkDefInput(){
+        var flag = true;
+        //判断用户名
+        if($("#defeatres").val()==null || $("#defeatres").val()==""){
+            alert("原因不能空，请按照实际情况填写。");
+            $("#defeatres").focus();
+            flag =false;
+            return flag;
+        }
+        return flag;
+    }
+
+    function checkSuccessInput(){
+        var flag = true;
+        //判断用户名
+        if($("#prodAccount").val()==null || $("#prodAccount").val()==""){
+            alert("接入号不能空！。");
+            $("#prodAccount").focus();
+            flag =false;
+            return flag;
+        }
+        return flag;
+    }
+    function logOut(){
+        $.ajax({
+            headers : {"ClientCallMode" : "ajax"},
+            type:"POST",
+            url:"${pageContext.request.contextPath }/user/logout.action",
+            success:function(data){
+                window.location.href="${pageContext.request.contextPath }/ywhy/login.jsp";
+            }
+        });
+    }
 </script>
 </html>

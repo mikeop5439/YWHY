@@ -1,16 +1,19 @@
 package com.YWHY.test;
-import com.YWHY.bean.Massage;
-import com.YWHY.bean.Order;
-import com.YWHY.bean.User;
-import com.YWHY.bean.more.OrderOfDef;
+
 import com.YWHY.service.Order.Service.OrderService;
-import com.YWHY.service.UserLogin.service.UserLoginService;
-import com.YWHY.tools.Md5;
+import com.YWHY.service.ProdType.service.ProdTypeService;
+import com.YWHY.service.Prods.service.ProdsService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+
+import java.sql.Timestamp;
+import java.util.Date;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:com/config/applicationContext.xml"})
@@ -18,7 +21,9 @@ public class AddTest {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private UserLoginService userLoginService;
+    private ProdTypeService  prodTypeService;
+    @Autowired
+    private ProdsService prodsService;
 //    @Test
 //    public void test1(){
 //        Md5 md5=new Md5();
@@ -41,9 +46,15 @@ public class AddTest {
 //    }
     @Test
     public void test2(){
-        OrderOfDef orderOfDef=new OrderOfDef();
-        orderOfDef.setOrderDefeat("太贵！");
-        orderOfDef.setOrderId(1);
-        orderService.updateOrderDefByPrimaryKey(orderOfDef);
+//       Prods prods=new Prods();
+//       prods.setOrderId(2);
+//       prods.setProdAccount("18984329139");
+//       prods.setProdTypeId(2);
+//       prodsService.insert(prods);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime()); //2013-01-14 22:45:36.484
+
+        System.out.println(timestamp);
+        //System.out.println(prodsService.selectByPrimaryKey(1).toString());
     }
 }

@@ -1,16 +1,21 @@
 package com.YWHY.controller.Order;
 
 import com.YWHY.bean.Order;
+import com.YWHY.bean.Prods;
 import com.YWHY.bean.more.OrderCount;
 import com.YWHY.bean.more.OrderOfDef;
 import com.YWHY.bean.more.OrderOfDefJson;
+import com.YWHY.bean.more.OrderOfSuccess;
 import com.YWHY.service.Order.Service.OrderService;
+import com.YWHY.service.Prods.service.ProdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,6 +24,8 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProdsService prodsService;
     //查询商机数量
     @RequestMapping("queryCount")
     public @ResponseBody OrderCount queryCount(String user_id){
@@ -36,9 +43,20 @@ public class OrderController {
     //商机失败回单
     @RequestMapping("submitOrderOfDef")
     public @ResponseBody int submitOrderOfDef(@RequestBody OrderOfDef orderOfDef){
-        System.out.println(orderOfDef.toString());
-        //orderService.updateOrderDefByPrimaryKey(orderOfDef);
+        orderService.updateOrderDefByPrimaryKey(orderOfDef);
         return  1;
     }
 
+    //商机成功回单
+    @RequestMapping("submitOrderOfSuccess")
+    public @ResponseBody int submitOrderOfSuccess(@RequestBody OrderOfSuccess orderOfSuccess){
+        orderService.updateOrderSuccessByPrimaryKey(orderOfSuccess);
+        return  1;
+    }
+    //添加订单产品信息
+    @RequestMapping("submitProds")
+    public @ResponseBody int submitProds(@RequestBody Prods prods){
+        prodsService.insert(prods);
+        return  1;
+    }
 }

@@ -2,6 +2,7 @@ package com.YWHY.service.Order.Serviceimp;
 
 import com.YWHY.bean.Order;
 import com.YWHY.bean.more.OrderOfDef;
+import com.YWHY.bean.more.OrderOfSuccess;
 import com.YWHY.mapper.OrderRelease.OrderMapper;
 import com.YWHY.service.Order.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,11 @@ public class OrderServiceImp implements OrderService {
     @Override
     public int updateOrderDefByPrimaryKey(OrderOfDef orderOfDef) {
         return orderMapper.updateOrderDefByPrimaryKey(orderOfDef);
+    }
+
+    @Override
+    public int updateOrderSuccessByPrimaryKey(OrderOfSuccess orderOfSuccess) {
+        orderMapper.updateOrderSuccessByPrimaryKey(orderOfSuccess);
+        return 0;
     }
 }
