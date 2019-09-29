@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>填写业务跟踪单</title>
+<!--Custom Theme files-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+<link rel="stylesheet" id="templatecss" type="text/css" href="css/dark-matter.css">
+<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css?v=5.4.4" />
+<!--//web-fonts-->
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.mmenu.min.all.js?v=5.4.4"></script>
+<!-- //js -->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart -->
+</head>
+<body>
+	<!-- main -->
+	<div  class=" mm-wrapper"  id="page">
+		<!--mobile-slider-->
+			<div class="banner">
+				<div class="header-top">
+					<ul>
+						<li><span></span></li>
+						<li><span class="chrg"></span> </li>
+						<li>10:00 </li>
+					</ul>
+				</div>
+				<div class="banner-text">
+					<section class="ac-container">
+						<div class="menu">
+							<input id="ac-5" name="accordion-1" type="checkbox" />
+							<label for="ac-5"><img src="images/menu-icon.png" alt=""/></label>
+							<article class="ac-medium">
+								<ul class="nav">
+									<li><a href="#">Home</a></li>
+									<li><a href="#">About</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Gallery</a></li>
+									<li><a href="#">Contact</a></li>
+								</ul> 
+							</article>
+						</div>
+					</section>
+					<div class="title">
+						<div class="title-left">
+							<img src="images/img1.jpg" alt=""/>
+						</div>
+						<div class="title-right">
+							<h2>黄鼎运 </h2>
+							<h6>社区经理</h6>
+						</div>
+						<div class="clear"> </div>
+					</div>
+				</div>
+			</div>
+			<div class="profile-slider">
+				<script>
+					// You can also use "$(window).load(function() {"
+					$(function () {
+					  // Slideshow 4
+					  $("#slider4").responsiveSlides({
+							auto: true,
+							pager:true,
+							nav:false,
+							speed: 400,
+							namespace: "callbacks"
+							  });
+
+							});
+				</script>
+				<div class="callbacks_container">
+				
+	<form action="" method="post" class="dark-matter">
+		<center><h1>业务跟踪单
+			<span>请填写商机信息，包括用户的需求、地址、联系电话等</span>
+		</h1></center>
+		<label>
+			<span>所属区域:</span>
+			<select id="template" name="themplate" onchange="changeStyle();">
+				<option value="basic-grey">百花</option>
+				<option value="elegant-aero">红旗</option>
+				<option value="smart-green">红枫</option>
+				<option value="white-pink">站街</option>
+				<option value="bootstrap-frm">卫城</option>
+				<option value="dark-matter">其他</option>
+			</select>
+		</label>
+		<label>
+			<span>用户姓名 :</span>
+			<input id="name" type="text" name="name" placeholder="例如：王先生" />
+		</label>
+		<label>
+			<span>用户联系电话 :</span>
+			<input id="email" type="email" name="email" placeholder="例如：18984329139" />
+		</label>
+
+		<label>
+			<span>用户需求 :</span>
+			<textarea id="message" name="message" placeholder="用户具体需求"></textarea>
+		</label>
+		<label>
+			<span>选择销售支撑 :</span><select name="selection">
+				<option value="Job Inquiry">田梦会</option>
+				<option value="General Question">王瑞</option>
+			</select>
+		</label>
+		<label>
+			<span>&nbsp;</span>
+			<a href="success.html"><input type="button" class="button" value="Send" /></a>
+		</label>
+	</form>
+					
+					<div class="clear"> </div>
+					<script src="js/responsiveslides.min.js"></script>
+						 
+				</div>
+			
+			</div>
+		
+		<!--//mobile-slider-->
+	</div>			
+</body>
+</html>

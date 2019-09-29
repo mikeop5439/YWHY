@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- c3p0连接池的使用 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!--基础配置（服务器）-->
+		<!--<property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
+		<!--<property name="jdbcUrl" value="jdbc:mysql://113.125.46.231:3306/ctc-qz-yxtj?characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull"/>-->
+		<!--<property name="user" value="root"/>-->
+		<!--<property name="password" value="root"/>-->
+		<!--基础配置（本地）-->
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/ctc-qz-ywhy?characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<!-- 关键配置 -->
+		<!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+		<property name="initialPoolSize" value="3"></property>
+		<!--连接池中保留的最小连接数。Default: 2 -->
+		<property name="minPoolSize" value="2"></property>
+		<!--连接池中保留的最大连接数。Default: 15 -->
+		<property name="maxPoolSize" value="15"></property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement" value="3"></property>
+
+		<!-- 性能配置 -->
+		<!-- 控制数据源内加载的PreparedStatements数量。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
+		<property name="maxStatements" value="8"></property>
+		<!-- maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
+		<property name="maxStatementsPerConnection" value="5"></property>
+		<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+		<property name="maxIdleTime" value="1800"></property>
+	</bean>
+	 
+	<!-- mybatis的运行过程
+		 sqlSessionFactory sqlSession  Mapper接口实现类
+		
+		现在由spring去创建mapper接口的具体实现类
+	 -->
+	<!--sqlSessionFactory 对象的创建  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:com/config/SqlMapConfig.xml"/>
+	</bean>
+	
+	<!-- Mapper接口的实现类的创建
+		org.mybatis.spring.mapper.MapperScannerConfigurer 专门用来扫描制定的包路径下的
+		mapper接口，自动的生成对应接口的mapper实现类
+		
+		把每一个接口的实现类都实例化，然后每一个类的id值就是类名，首字母小写
+	 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.YWHY.mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+
+	
+	
+</beans>
