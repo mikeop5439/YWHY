@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>About</title>
+<title>工单跟踪</title>
 <!--Custom Theme files-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -77,6 +77,20 @@
 <!--js-->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.mmenu.min.all.js?v=5.4.4"></script>
+	<script type="text/javascript">
+        var t = null;
+        t = setTimeout(time,1000);
+        function time()
+        {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var h=dt.getHours();//获取时
+            var m=dt.getMinutes();//获取分
+            var s=dt.getSeconds();//获取秒
+            document.getElementById("showTime").innerHTML = "系统时间 "+h+":"+m+":"+s;
+            t = setTimeout(time,1000); //设定定时器，循环运行
+        }
+	</script>
 	<script >
         window.onload =function() {
             var user_id="${ sessionScope.userid}";
@@ -92,7 +106,7 @@
 				<div class="banner">
 					<div class="header-top">
 						<ul>
-
+							<li id="showTime"></li>
 						</ul>
 					</div>
 					<div class="banner-text">
@@ -101,7 +115,7 @@
 							<nav id="menu">
 								<ul class="">
 									<li class="menu-title">菜单</li>
-									<li><a href="引导.html"><span class="icons icn2"> </span>发起工单</a></li>
+									<li><a href="yd.html"><span class="icons icn2"> </span>发起工单</a></li>
 									<li><a href="#"><span class="icons icn3"> </span> 历史工单</a></li>
 									<li><a href="#"><span class="icons icn4"> </span> 设置</a></li>
 									<li><a onclick="logOut()"  href="#"><span class="icons icn5"> </span> 退出</a></li>
@@ -209,7 +223,7 @@
                 $.each(data,function(index,content){
                     var date=SetTime(content.orderStartDate);
                     var text_centent=content.orderText;
-                    var titel_centent=content.orderUserName+","+date;
+                    var titel_centent=content.orderUserName+","+date+"  (发单人："+content.userName+")";
                     var index1=index%4+1;
                     var text1="ac-"+index1;
                     var text2="grid"+index1;

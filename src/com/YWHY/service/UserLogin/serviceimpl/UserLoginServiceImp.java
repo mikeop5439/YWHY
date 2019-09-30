@@ -31,8 +31,8 @@ public class UserLoginServiceImp implements UserLoginService {
     }
 
     @Override
-    public User selectByName(String user_name) {
-        return userMapper.selectByName(user_name);
+    public User selectByNameOrNumber(String user_name) {
+        return userMapper.selectByNameOrNumber(user_name);
     }
 
     @Override

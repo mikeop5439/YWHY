@@ -14,6 +14,24 @@
     <result column="order_user_id" property="orderUserId" jdbcType="INTEGER" />
     <result column="order_defeat" property="orderDefeat" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.YWHY.bean.more.OrderAndSubUserName" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_area" property="orderArea" jdbcType="VARCHAR" />
+    <result column="order_user_name" property="orderUserName" jdbcType="VARCHAR" />
+    <result column="order_tele" property="orderTele" jdbcType="VARCHAR" />
+    <result column="order_text" property="orderText" jdbcType="VARCHAR" />
+    <result column="order_support_id" property="orderSupportId" jdbcType="INTEGER" />
+    <result column="order_start_date" property="orderStartDate" jdbcType="TIMESTAMP" />
+    <result column="order_end_date" property="orderEndDate" jdbcType="TIMESTAMP" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="order_user_id" property="orderUserId" jdbcType="INTEGER" />
+    <result column="order_defeat" property="orderDefeat" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap3" type="com.YWHY.bean.more.OrderSupportGroup" >
+    <result column="user_name" property="supportName" jdbcType="VARCHAR" />
+    <result column="support_id" property="supportId" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Base_Column_List" >
     order_id, order_area, order_user_name, order_tele, order_text, order_support_id, 
     order_start_date, order_end_date, order_status, order_user_id, order_defeat
@@ -35,7 +53,7 @@
       order_user_id, order_defeat)
     values (#{orderId,jdbcType=INTEGER}, #{orderArea,jdbcType=VARCHAR}, #{orderUserName,jdbcType=VARCHAR}, 
       #{orderTele,jdbcType=VARCHAR}, #{orderText,jdbcType=VARCHAR}, #{orderSupportId,jdbcType=INTEGER}, 
-      #{orderStartDate,jdbcType=TIMESTAMP}, #{orderEndDate,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=INTEGER}, 
+      DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s'), #{orderEndDate,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=INTEGER},
       #{orderUserId,jdbcType=INTEGER}, #{orderDefeat,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.YWHY.bean.Order" >
@@ -174,15 +192,16 @@
     from `order`
     where order_user_id = #{orderUserId,jdbcType=INTEGER}
   </select>
-  <select id="selectOrderOfStartByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select *
+  <select id="selectOrderOfStartByPrimaryKey" resultMap="BaseResultMap2" parameterType="java.lang.Integer" >
+  select a.*,b.user_name
     from (
      select *
      from `order`
      where order_user_id = #{orderUserId,jdbcType=INTEGER}
      or order_support_id = #{orderUserId,jdbcType=INTEGER}
-   )b
-   where b.order_status = 0
+   )a,`user`b
+   where a.order_status = 0
+   AND a.order_user_id=b.user_id
   </select>
   <update id="updateOrderDefByPrimaryKey" parameterType="com.YWHY.bean.more.OrderOfDef" >
     update `order`
@@ -204,4 +223,10 @@
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
+  <select id="selectSupportGroup" resultMap="BaseResultMap3" parameterType="java.lang.Integer" >
+    select a.support_id,b.user_name
+    from support_group a,`user` b
+    WHERE a.user_id = #{userId,jdbcType=INTEGER}
+    AND a.support_id = b.user_id
+  </select>
 </mapper>

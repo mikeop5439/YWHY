@@ -2,10 +2,7 @@ package com.YWHY.controller.Order;
 
 import com.YWHY.bean.Order;
 import com.YWHY.bean.Prods;
-import com.YWHY.bean.more.OrderCount;
-import com.YWHY.bean.more.OrderOfDef;
-import com.YWHY.bean.more.OrderOfDefJson;
-import com.YWHY.bean.more.OrderOfSuccess;
+import com.YWHY.bean.more.*;
 import com.YWHY.service.Order.Service.OrderService;
 import com.YWHY.service.Prods.service.ProdsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +54,19 @@ public class OrderController {
     @RequestMapping("submitProds")
     public @ResponseBody int submitProds(@RequestBody Prods prods){
         prodsService.insert(prods);
+        return  1;
+    }
+    //查询支撑组
+    @RequestMapping("querySupportGroup")
+    public @ResponseBody List<OrderSupportGroup> querySupportGroup(String user_id){
+        int userId=Integer.parseInt(user_id);
+        return  orderService.selectSupportGroup(userId);
+    }
+    //提交业务跟踪单
+    @RequestMapping("submitOrder")
+    public @ResponseBody int submitOrder(Order order){
+        order.setOrderStatus(0);
+        orderService.insert(order);
         return  1;
     }
 }

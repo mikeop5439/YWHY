@@ -15,9 +15,24 @@
 <!-- js -->
 <script src="js/jquery-1.11.1.min.js"></script> 
 <script type="text/javascript" src="js/jquery.mmenu.min.all.js?v=5.4.4"></script>
+<script src="js/submitorder.js"></script>
 <!-- //js -->
 <!-- chart -->
 <script src="js/Chart.js"></script>
+	<script type="text/javascript">
+        var t = null;
+        t = setTimeout(time,1000);
+        function time()
+        {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var h=dt.getHours();//获取时
+            var m=dt.getMinutes();//获取分
+            var s=dt.getSeconds();//获取秒
+            document.getElementById("showTime").innerHTML = "系统时间 "+h+":"+m+":"+s;
+            t = setTimeout(time,1000); //设定定时器，循环运行
+        }
+	</script>
 <!-- //chart -->
 </head>
 <body>
@@ -27,9 +42,7 @@
 			<div class="banner">
 				<div class="header-top">
 					<ul>
-						<li><span></span></li>
-						<li><span class="chrg"></span> </li>
-						<li>10:00 </li>
+						<li id="showTime"></li>
 					</ul>
 				</div>
 				<div class="banner-text">
@@ -39,12 +52,9 @@
 							<label for="ac-5"><img src="images/menu-icon.png" alt=""/></label>
 							<article class="ac-medium">
 								<ul class="nav">
-									<li><a href="#">Home</a></li>
-									<li><a href="#">About</a></li>
-									<li><a href="#">Services</a></li>
-									<li><a href="#">Gallery</a></li>
-									<li><a href="#">Contact</a></li>
-								</ul> 
+									<li><a href="ownpage.jsp">主页</a></li>
+									<li><a onclick="logOut()" href="#">退出登录</a></li>
+								</ul>
 							</article>
 						</div>
 					</section>
@@ -106,7 +116,7 @@
 					<script src="js/responsiveslides.min.js"></script>
 						 
 				</div>
-				<a href="submitorder.html" class="skip">我知道了</a>
+				<a href="submitorder.jsp" class="skip">我知道了</a>
 			</div>
 		
 		<!--//mobile-slider-->

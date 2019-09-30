@@ -9,7 +9,7 @@ public interface UserLoginService {
 
     int insertSelective(User record);
 
-    User selectByName(String user_name);
+    User selectByNameOrNumber(String user_name);
 
     User selectByPrimaryKey(Integer userId);
 

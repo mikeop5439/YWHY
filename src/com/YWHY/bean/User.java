@@ -11,6 +11,8 @@ public class User {
 
     private String userImgAddress;
 
+    private String userNumber;
+
     public Integer getUserId() {
         return userId;
     }
@@ -24,7 +26,7 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getUserPwd() {
@@ -32,7 +34,7 @@ public class User {
     }
 
     public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd == null ? null : userPwd.trim();
+        this.userPwd = userPwd;
     }
 
     public int getUserRole() {
@@ -48,6 +50,13 @@ public class User {
     }
 
     public void setUserImgAddress(String userImgAddress) {
-        this.userImgAddress = userImgAddress == null ? null : userImgAddress.trim();
+        this.userImgAddress = userImgAddress;
+    }
+
+    public String getUserNumber() {
+        return userNumber;
+    }
+    public void setUserNumber(String userNumber) {
+        this.userNumber = userNumber;
     }
 }

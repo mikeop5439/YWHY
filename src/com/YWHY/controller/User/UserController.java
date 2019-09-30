@@ -24,33 +24,39 @@ public class UserController {
     private UserLoginService userLoginService;
     @Autowired
     private RoleLoginService roleLoginService;
+
     @RequestMapping("login")
     public @ResponseBody
-    Massage bxForm(User user, HttpSession session){
-        Role role=new Role();
-        Md5 md5=new Md5();
+    Massage bxForm(User user, HttpSession session) {
+        User user1=new User();
+        Role role = new Role();
+        Md5 md5 = new Md5();
         String pwd;
         int user_role;
         int user_id;
-        pwd=md5.md5(user.getUserPwd());
-        Massage massage=new Massage();
-        if (userLoginService.selectByName(user.getUserName()).getUserPwd().equals(pwd)){
-            user=userLoginService.selectByName(user.getUserName());
-            user_role=user.getUserRole();
-            user_id=user.getUserId();
-            role=roleLoginService.selectByPrimaryKey(user_role);
+        pwd = md5.md5(user.getUserPwd());
+        Massage massage = new Massage();
+        user1=userLoginService.selectByNameOrNumber(user.getUserName());
+        if (user1 == null) {
+            massage.setMassage("登陆失败");
+            return massage;
+        } else if (user1.getUserPwd().equals(pwd)) {
+            user = userLoginService.selectByNameOrNumber(user.getUserName());
+            user_role = user.getUserRole();
+            user_id = user.getUserId();
+            role = roleLoginService.selectByPrimaryKey(user_role);
             massage.setMassage("登陆成功");
             session.setAttribute("username", user.getUserName());
             session.setAttribute("rolename", role.getRoleName());
             session.setAttribute("userid", user_id);
             return massage;
-        }else{
+        } else {
             massage.setMassage("登陆失败");
-            session.setAttribute("msg", "工号或密码错误！");
             return massage;
-
         }
     }
+
+
     @RequestMapping("logout")
     public @ResponseBody Massage logOut(HttpSession session){
         Massage massage=new Massage();
