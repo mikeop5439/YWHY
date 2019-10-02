@@ -1,11 +1,13 @@
 package com.YWHY.test;
 
 import com.YWHY.bean.User;
+import com.YWHY.bean.more.OrderDetil;
 import com.YWHY.service.Order.Service.OrderService;
 import com.YWHY.service.ProdType.service.ProdTypeService;
 import com.YWHY.service.Prods.service.ProdsService;
 
 import com.YWHY.service.UserLogin.service.UserLoginService;
+import com.YWHY.tools.DateConver;
 import com.YWHY.tools.Md5;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -51,7 +54,17 @@ public class AddTest {
 //    }
     @Test
     public void test2(){
-        System.out.println(userLoginService.selectByNameOrNumber("hdy")==null);
+//        DateConver dateConver=new DateConver();
+//        dateConver.formatDate1("Wed Oct 02 13:05:25 CST 2019");
+        DateConver dateConver=new DateConver();
+        OrderDetil orderDetil=new OrderDetil();
+        orderDetil=orderService.selectOrderByPrimaryKey(1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        System.out.println(sdf.format(orderDetil.getOrderEndDate()));
 
+    }
+    @Test
+    public void test3(){
+        System.out.println(prodsService.selectProdsNameAndAccount(1).toString());
     }
 }

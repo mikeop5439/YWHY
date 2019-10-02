@@ -58,13 +58,13 @@ function checkInput(){
     }
     return flag;
 }
-function logOut(){
+function logOut(path){
     $.ajax({
         headers : {"ClientCallMode" : "ajax"},
         type:"POST",
-        url:"${pageContext.request.contextPath }/user/logout.action",
+        url:path+"/user/logout.action",
         success:function(data){
-            window.location.href="${pageContext.request.contextPath }/ywhy/login.jsp";
+            window.location.href=path+"/ywhy/login.jsp";
         }
     });
 }

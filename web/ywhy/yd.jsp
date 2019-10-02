@@ -1,3 +1,10 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"+request.getContextPath()+"/";
+	String path1=request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +60,7 @@
 							<article class="ac-medium">
 								<ul class="nav">
 									<li><a href="ownpage.jsp">主页</a></li>
-									<li><a onclick="logOut()" href="#">退出登录</a></li>
+									<li><a onclick="logOut('<%=path1%>')" href="#">退出登录</a></li>
 								</ul>
 							</article>
 						</div>

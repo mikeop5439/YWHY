@@ -1,6 +1,7 @@
 package com.YWHY.service.Prods.serviceimpl;
 
 import com.YWHY.bean.Prods;
+import com.YWHY.bean.more.ProdsNameAndAccount;
 import com.YWHY.mapper.Prods.ProdsMapper;
 import com.YWHY.service.Prods.service.ProdsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class ProdsServiceImpl implements ProdsService {
     public int updateByPrimaryKey(Prods record) {
         prodsMapper.updateByPrimaryKey(record);
         return 0;
+    }
+
+    @Override
+    public ProdsNameAndAccount selectProdsNameAndAccount(Integer orderId) {
+        return prodsMapper.selectProdsNameAndAccount(orderId);
     }
 }

@@ -115,8 +115,9 @@
 							<nav id="menu">
 								<ul class="">
 									<li class="menu-title">菜单</li>
-									<li><a href="yd.html"><span class="icons icn2"> </span>发起工单</a></li>
-									<li><a href="#"><span class="icons icn3"> </span> 历史工单</a></li>
+									<li><a href="yd.jsp"><span class="icons icn2"> </span>发起工单</a></li>
+									<li><a href="ownpage.jsp"><span class="icons icn1"> </span>在途工单</a></li>
+									<li><a href="historyorder.jsp"><span class="icons icn3"> </span> 历史工单</a></li>
 									<li><a href="#"><span class="icons icn4"> </span> 设置</a></li>
 									<li><a onclick="logOut()"  href="#"><span class="icons icn5"> </span> 退出</a></li>
 								</ul>
@@ -169,8 +170,8 @@
 					</div>
 					<div class="clear"> </div>
 				</div>
-				<div class="work-text">
-					<h3>正在跟踪</h3>
+				<div id="gzdiv"class="work-text">
+					<h3 id="gz">正在跟踪</h3>
 					<section id="information-area" class="ac-container">
 					</section>
 				</div>
@@ -219,26 +220,34 @@
             data:"user_id="+user_id,
             dataType:"json",
             success:function(data){
-                $("#information-area").empty();
-                $.each(data,function(index,content){
-                    var date=SetTime(content.orderStartDate);
-                    var text_centent=content.orderText;
-                    var titel_centent=content.orderUserName+","+date+"  (发单人："+content.userName+")";
-                    var index1=index%4+1;
-                    var text1="ac-"+index1;
-                    var text2="grid"+index1;
-                    var div1=$("<div></div>");
-                    var input=$("<input />").attr("id",text1).attr("name","accordion-1").attr("type","checkbox");
-                    var i=$("<i />").attr("id","kkk");
-                    var label=$("<label></label>").attr("for",text1).addClass(text2).append(i).append(titel_centent);
-                    var article=$("<article></article>").addClass("ac-small");
-                    var p=$("<p></p>").append(text_centent);
-                    var a=$("<a></a>").attr("href","#modal").attr("onClick","setOrderId("+content.orderId+")");
-                    var div2=$("<div></div>").attr("align","center").attr("href","#modal");
-                    var font=$("<font></font>").attr("color","#FFFFFF").attr("size","4").append("点击回单");
-                    var information=div1.append(input).append(label).append(article.append(p).append(div2.append(a.append(font))));
-                    $("#information-area").append(information);
-                });
+                console.log(data.length);
+                if (data.length==0){
+                    $("#gzdiv").empty();
+                    var div1=$("<div></div>").attr("align","center").attr("href","#modal");
+                    var h3=$("<h3></h3>")
+                    $("#gzdiv").append(div1).append(h3.append("没有正在跟踪的商机！"));
+				}else{
+                    $("#information-area").empty();
+                    $.each(data,function(index,content){
+                        var date=SetTime(content.orderStartDate);
+                        var text_centent=content.orderText;
+                        var titel_centent=content.orderUserName+","+date+"  (发单人："+content.userName+")";
+                        var index1=index%4+1;
+                        var text1="ac-"+index1;
+                        var text2="grid"+index1;
+                        var div1=$("<div></div>");
+                        var input=$("<input />").attr("id",text1).attr("name","accordion-1").attr("type","checkbox");
+                        var i=$("<i />").attr("id","kkk");
+                        var label=$("<label></label>").attr("for",text1).addClass(text2).append(i).append(titel_centent);
+                        var article=$("<article></article>").addClass("ac-small");
+                        var p=$("<p></p>").append(text_centent);
+                        var a=$("<a></a>").attr("href","#modal").attr("onClick","setOrderId("+content.orderId+")");
+                        var font=$("<font></font>").attr("color","#FFFFFF").attr("size","4").append("点击回单");
+                        var div2=$("<div></div>").css({"background-color":"#E259C6"}).attr("align","center").attr("href","#modal");
+                        var information=div1.append(input).append(label).append(article.append(p).append(div2.append(a.append(font))));
+                        $("#information-area").append(information);
+                    });
+				}
             }
         });
 	}

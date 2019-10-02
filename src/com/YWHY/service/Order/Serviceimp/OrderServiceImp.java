@@ -1,9 +1,7 @@
 package com.YWHY.service.Order.Serviceimp;
 
 import com.YWHY.bean.Order;
-import com.YWHY.bean.more.OrderOfDef;
-import com.YWHY.bean.more.OrderOfSuccess;
-import com.YWHY.bean.more.OrderSupportGroup;
+import com.YWHY.bean.more.*;
 import com.YWHY.mapper.OrderRelease.OrderMapper;
 import com.YWHY.service.Order.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +72,15 @@ public class OrderServiceImp implements OrderService {
     @Override
     public List<OrderSupportGroup> selectSupportGroup(Integer userId) {
         return orderMapper.selectSupportGroup(userId);
+    }
+
+    @Override
+    public List<Order> selectHistoryOrderByPrimaryKey(Integer orderId) {
+        return orderMapper.selectHistoryOrderByPrimaryKey(orderId);
+    }
+
+    @Override
+    public OrderDetil selectOrderByPrimaryKey(Integer orderId) {
+        return orderMapper.selectOrderByPrimaryKey(orderId);
     }
 }

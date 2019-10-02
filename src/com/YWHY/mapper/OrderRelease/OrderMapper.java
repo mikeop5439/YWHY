@@ -1,9 +1,7 @@
 package com.YWHY.mapper.OrderRelease;
 
 import com.YWHY.bean.Order;
-import com.YWHY.bean.more.OrderOfDef;
-import com.YWHY.bean.more.OrderOfSuccess;
-import com.YWHY.bean.more.OrderSupportGroup;
+import com.YWHY.bean.more.*;
 
 import java.util.List;
 
@@ -31,4 +29,8 @@ public interface OrderMapper {
     int updateOrderSuccessByPrimaryKey(OrderOfSuccess orderOfSuccess);
 
     List<OrderSupportGroup> selectSupportGroup(Integer userId);
+
+    List<Order> selectHistoryOrderByPrimaryKey(Integer orderId);
+
+    OrderDetil selectOrderByPrimaryKey(Integer orderId);
 }

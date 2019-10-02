@@ -1,6 +1,7 @@
 package com.YWHY.service.Prods.service;
 
 import com.YWHY.bean.Prods;
+import com.YWHY.bean.more.ProdsNameAndAccount;
 
 public interface ProdsService {
     int deleteByPrimaryKey(Integer prodsId);
@@ -14,4 +15,6 @@ public interface ProdsService {
     int updateByPrimaryKeySelective(Prods record);
 
     int updateByPrimaryKey(Prods record);
+
+    ProdsNameAndAccount selectProdsNameAndAccount(Integer orderId);
 }

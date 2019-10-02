@@ -69,7 +69,7 @@
 							<article class="ac-medium">
 								<ul class="nav">
 									<li><a href="ownpage.jsp">主页</a></li>
-                                    <li><a onclick="logOut()" href="#">退出登录</a></li>
+                                    <li><a onclick="logOut('<%=path1%>')" href="#">退出登录</a></li>
 								</ul>
 							</article>
 						</div>
