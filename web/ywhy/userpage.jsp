@@ -16,6 +16,7 @@
 <!--Custom Theme files-->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css?v=5.4.4" />
+<link type="text/css" rel="stylesheet" href="css/modelstyle2.css">
 <!--js-->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/submitorder.js"></script>
@@ -38,8 +39,8 @@
         window.onload =function() {
             var user_id="${ sessionScope.userid}";
             queryOrderCount(user_id,"<%=path1%>");
-            queryHistoryOrder(user_id,"<%=path1%>");
         };
+
 	</script>
 <!-- //js -->
 </head>
@@ -113,10 +114,23 @@
 					</div>
 					<div class="clear"> </div>
 				</div>
-				<div id="gzdiv" class="work-text">
-					<h3>正在跟踪</h3>
-					<section id="information-area" class="ac-container">
-					</section>
+				<div class="wrapper">
+					<div align="center">
+						<div class="wrapper">
+							<div class="button _1" onclick="setTimeout( function(){window.location.href='yd.jsp';},1050)"> <span>发起工单</span>
+								<div class="back"></div>
+							</div>
+							<div class="button _2" onclick="setTimeout( function(){window.location.href='onwayorder.jsp';},1050)"> <span>在途单跟踪</span>
+								<div class="back"></div>
+							</div>
+							<div class="button _3" onclick="setTimeout( function(){window.location.href='historyorder.jsp';},1050)"> <span>历史单查询</span>
+								<div class="back"></div>
+							</div>
+							<div class="button _4"> <span>后台管理系统</span>
+								<div class="back"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

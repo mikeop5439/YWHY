@@ -116,7 +116,7 @@
 								<ul class="">
 									<li class="menu-title">菜单</li>
 									<li><a href="yd.jsp"><span class="icons icn2"> </span>发起工单</a></li>
-									<li><a href="ownpage.jsp"><span class="icons icn1"> </span>在途工单</a></li>
+									<li><a href="onwayorder.jsp"><span class="icons icn1"> </span>在途工单</a></li>
 									<li><a href="historyorder.jsp"><span class="icons icn3"> </span> 历史工单</a></li>
 									<li><a href="#"><span class="icons icn4"> </span> 设置</a></li>
 									<li><a onclick="logOut()"  href="#"><span class="icons icn5"> </span> 退出</a></li>

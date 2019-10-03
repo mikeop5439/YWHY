@@ -13,7 +13,7 @@
   <meta name="keywords" content="">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Amaze UI Examples</title>
+  <title>清镇电信-营维合一系统</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <link rel="stylesheet" href="css/amazeui.min.css">
@@ -110,7 +110,7 @@
                 if(data.massage=='登陆失败'){
                     alert(data.massage+":工号或密码错误！")
                 }else{
-                    window.location.href="${pageContext.request.contextPath }/ywhy/ownpage.jsp";
+                    window.location.href="userpage.jsp";
                 }
             }
         };
