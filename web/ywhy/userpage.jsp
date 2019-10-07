@@ -126,7 +126,7 @@
 							<div class="button _3" onclick="setTimeout( function(){window.location.href='historyorder.jsp';},1050)"> <span>历史单查询</span>
 								<div class="back"></div>
 							</div>
-							<div class="button _4"> <span>后台管理系统</span>
+							<div class="button _4" onclick="setTimeout( function(){window.location.href='adminsys/accounts.html';},1050)"> <span>后台管理系统</span>
 								<div class="back"></div>
 							</div>
 						</div>
